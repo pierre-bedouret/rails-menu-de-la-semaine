@@ -10,18 +10,24 @@
       </ul>
     </div>
   <% end %>
+  <% if @ingredients.empty? %>
+    <p>Aucun ingredient existant à ajouter. Veuillez créer un nouvel ingredient pour l'ajouter</p>
+  <% else %>
+    <div class="field">
+      <%= form.label :ingredient %>
+      <%= form.select :ingredient, @ingredients.map { |ingredient| [ingredient.name, ingredient.id]} %>
+    </div>
 
-  <div class="field">
-    <%= form.label :ingredient %>
-    <%= form.select :ingredient, Ingredient.all.map { |ingredient| [ingredient.name, ingredient.id] } %>
-  </div>
+    <div class="field">
+      <%= form.label :quantity %>
+      <%= form.number_field :quantity, min: "1", step: "1" %>
+    </div>
 
-  <div class="field">
-    <%= form.label :quantity %>
-    <%= form.number_field :quantity, min: "1", step: "1" %>
-  </div>
+    <div class="actions">
+      <%= form.submit %>
+    </div>
+  <% end %>
 
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+  <%= link_to 'New Ingredient', new_ingredient_path %>
+
 <% end %>

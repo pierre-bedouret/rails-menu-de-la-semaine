@@ -3,6 +3,7 @@ class RecipeIngredientsController < ApplicationController
 
   def new
     @recipe_ingredient = RecipeIngredient.new
+    @ingredients = Ingredient.where.not(id: @recipe.ingredients.ids).order(:name)
   end
 
   def create
