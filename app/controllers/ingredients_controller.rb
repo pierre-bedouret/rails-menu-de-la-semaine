@@ -1,6 +1,5 @@
 class IngredientsController < ApplicationController
   before_action :set_ingredient, only: [:show, :edit, :update, :destroy]
-  before_action :set_recipe, only: [:new, :create]
   # GET /ingredients
   # GET /ingredients.json
   def index
@@ -25,11 +24,10 @@ class IngredientsController < ApplicationController
   # POST /ingredients.json
   def create
     @ingredient = Ingredient.new(ingredient_params)
-    @ingredient.recipe = @recipe
 
     respond_to do |format|
       if @ingredient.save
-        format.html { redirect_to recipe_path(@recipe), notice: 'Ingredient was successfully created.' }
+        format.html { redirect_to @ingredient, notice: 'Ingredient was successfully created.' }
         format.json { render :show, status: :created, location: @ingredient }
       else
         format.html { render :new }
@@ -66,10 +64,6 @@ class IngredientsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_ingredient
       @ingredient = Ingredient.find(params[:id])
-    end
-
-    def set_recipe
-      @recipe = Recipe.find(params[:recipe_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

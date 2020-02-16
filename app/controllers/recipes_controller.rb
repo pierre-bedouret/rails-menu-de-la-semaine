@@ -1,5 +1,6 @@
 class RecipesController < ApplicationController
   before_action :set_recipe, only: [:show, :edit, :update, :destroy]
+  before_action :set_ingredients, only: [:new, :edit]
 
   # GET /recipes
   # GET /recipes.json
@@ -40,6 +41,7 @@ class RecipesController < ApplicationController
   # PATCH/PUT /recipes/1
   # PATCH/PUT /recipes/1.json
   def update
+
     respond_to do |format|
       if @recipe.update(recipe_params)
         format.html { redirect_to @recipe, notice: 'Recipe was successfully updated.' }
@@ -67,8 +69,12 @@ class RecipesController < ApplicationController
       @recipe = Recipe.find(params[:id])
     end
 
+    def set_ingredients
+      @ingredients = Ingredient.all
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def recipe_params
-      params.require(:recipe).permit(:name, :description, :categorie, :difficulty, :prep_time, :cooking_time)
+      params.require(:recipe).permit(:name, :description, :categorie, :difficulty, :prep_time, :cooking_time, ingredients: [])
     end
 end

@@ -11,11 +11,12 @@ class Recipe < ApplicationRecord
   ].freeze
 
   ########## ASSOCIATIONS ########
-  has_many :ingredients
+  has_many :recipe_ingredients
+  has_many :ingredients, through: :recipe_ingredients
 
   ########## VALIDATIONS ##########
   validates :name, presence: true, uniqueness: true
-  validates :prep_time, :cooking_time, numericality: { greater_than: 0 }
+  validates :prep_time, :cooking_time, numericality: { greater_than_or_equal: 0 }
 
   ########## INSTANCES METHODS ########
   def difficulty_to_human

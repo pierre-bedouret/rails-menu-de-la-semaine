@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
 
   resources :recipes do
-    resources :ingredients, only: %i[show new create]
+    resources :recipe_ingredients, only: [:new, :create, :destroy]
   end
-  resources :ingredients, only: %i[index edit update destroy]
+  resources :ingredients
+
 end
