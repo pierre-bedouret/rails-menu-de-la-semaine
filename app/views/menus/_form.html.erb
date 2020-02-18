@@ -1,0 +1,32 @@
+<%= form_for(menu, local: true) do |form| %>
+  <% if menu.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(menu.errors.count, "error") %> prohibited this menu from being saved:</h2>
+
+      <ul>
+      <% menu.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :starter_id %>
+    <%= form.select :starter_id, @starters.map { |starter| [starter.name, starter.id]}, prompt: 'Select a starter or not' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :main_id %>
+    <%= form.select :main_id, @mains.map { |main| [main.name, main.id]} %>
+  </div>
+
+  <div class="field">
+    <%= form.label :dessert_id %>
+    <%= form.select :dessert_id, @desserts.map { |dessert| [dessert.name, dessert.id]}, prompt: 'Select a dessert or not' %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

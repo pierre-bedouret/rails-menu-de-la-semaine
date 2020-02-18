@@ -10,12 +10,12 @@
       </ul>
     </div>
   <% end %>
-  <% if @ingredients.empty? %>
+  <% if ingredients.empty? %>
     <p>Aucun ingredient existant à ajouter. Veuillez créer un nouvel ingredient pour l'ajouter</p>
   <% else %>
     <div class="field">
-      <%= form.label :ingredient %>
-      <%= form.select :ingredient, @ingredients.map { |ingredient| [ingredient.name, ingredient.id]} %>
+      <%= form.label :ingredient_id %>
+      <%= form.select :ingredient_id, ingredients.map { |ingredient| [ingredient.name, ingredient.id]} %>
     </div>
 
     <div class="field">

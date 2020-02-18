@@ -13,10 +13,18 @@ class Recipe < ApplicationRecord
   ########## ASSOCIATIONS ########
   has_many :recipe_ingredients
   has_many :ingredients, through: :recipe_ingredients
+  has_many :starter_menus, class_name: 'Menu', foreign_key: 'starter_id'
+  has_many :main_menus, class_name: 'Menu', foreign_key: 'main_id'
+  has_many :dessert_menus, class_name: 'Menu', foreign_key: 'dessert_id'
 
   ########## VALIDATIONS ##########
   validates :name, presence: true, uniqueness: true
   validates :prep_time, :cooking_time, numericality: { greater_than_or_equal: 0 }
+
+  ########## SCOPES ##########
+  scope :starter, -> { where(categorie: 'Entrée') }
+  scope :main, -> { where(categorie: 'Plat') }
+  scope :dessert, -> { where(categorie: 'Dessert') }
 
   ########## INSTANCES METHODS ########
   def difficulty_to_human

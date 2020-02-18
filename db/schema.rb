@@ -24,9 +24,14 @@ ActiveRecord::Schema.define(version: 2020_02_16_142440) do
   end
 
   create_table "menus", force: :cascade do |t|
-    t.text "recipes", default: [], array: true
+    t.bigint "starter_id"
+    t.bigint "main_id"
+    t.bigint "dessert_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["dessert_id"], name: "index_menus_on_dessert_id"
+    t.index ["main_id"], name: "index_menus_on_main_id"
+    t.index ["starter_id"], name: "index_menus_on_starter_id"
   end
 
   create_table "recipe_ingredients", force: :cascade do |t|
@@ -50,4 +55,7 @@ ActiveRecord::Schema.define(version: 2020_02_16_142440) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "menus", "recipes", column: "dessert_id"
+  add_foreign_key "menus", "recipes", column: "main_id"
+  add_foreign_key "menus", "recipes", column: "starter_id"
 end

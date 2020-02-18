@@ -4,5 +4,6 @@ Rails.application.routes.draw do
     resources :recipe_ingredients, only: [:new, :create, :destroy]
   end
   resources :ingredients
+  resources :menus
 
 end

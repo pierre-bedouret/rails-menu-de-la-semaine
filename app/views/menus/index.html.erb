@@ -1,0 +1,38 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Menus</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>N°</th>
+      <th>Entrée</th>
+      <th>Plat</th>
+      <th>Dessert</th>
+      <th>Ingredients</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @menus.each do |menu| %>
+      <tr>
+        <td><%= menu.id %></td>
+        <td><%= menu.starter.name if menu.starter.present? %></td>
+        <td><%= menu.main.name if menu.main.present? %></td>
+        <td><%= menu.dessert.name if menu.dessert.present? %></td>
+        <td>
+          <% menu.ingredients.each do |ingredient| %>
+            <%= ingredient.name %><br/>
+          <% end %>
+        </td>
+        <td><%= link_to 'Show', menu %></td>
+        <td><%= link_to 'Edit', edit_menu_path(menu) %></td>
+        <td><%= link_to 'Destroy', menu, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'New Menu', new_menu_path %>
+

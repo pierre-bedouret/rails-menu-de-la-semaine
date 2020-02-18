@@ -1,16 +1,13 @@
 class RecipeIngredientsController < ApplicationController
   before_action :set_recipe
+  before_action :set_ingredients
 
   def new
     @recipe_ingredient = RecipeIngredient.new
-    @ingredients = Ingredient.where.not(id: @recipe.ingredients.ids).order(:name)
   end
 
   def create
-    @quantity = recipe_ingredient_params[:quantity]
-    @ingredient = Ingredient.find(recipe_ingredient_params[:ingredient])
-
-    @recipe_ingredient = RecipeIngredient.new(recipe: @recipe, ingredient: @ingredient, quantity: @quantity)
+    @recipe_ingredient = RecipeIngredient.new(recipe_ingredient_params.merge(recipe: @recipe))
 
     if @recipe_ingredient.save
       redirect_to recipe_path(@recipe), notice: 'Ingredient was successfully added.'
@@ -32,8 +29,12 @@ class RecipeIngredientsController < ApplicationController
     @recipe = Recipe.find(params[:recipe_id])
   end
 
+  def set_ingredients
+    @ingredients = Ingredient.where.not(id: @recipe.ingredients.ids).order(:name)
+  end
+
   # Never trust parameters from the scary internet, only allow the white list through.
   def recipe_ingredient_params
-    params.require(:recipe_ingredient).permit(:quantity, :ingredient)
+    params.require(:recipe_ingredient).permit(:quantity, :ingredient_id)
   end
 end
