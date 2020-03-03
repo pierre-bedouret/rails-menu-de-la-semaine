@@ -2,15 +2,15 @@
 
 <h1>Ingredients</h1>
 
-<table>
-  <thead>
+<%= table do %>
+  <%= thead do %>
     <tr>
       <th>Name</th>
       <th colspan="3"></th>
     </tr>
-  </thead>
+  <% end %>
 
-  <tbody>
+  <%= tbody do %>
     <% @ingredients.each do |ingredient| %>
       <tr>
         <td><%= ingredient.name %></td>
@@ -19,8 +19,17 @@
         <td><%= link_to 'Destroy', ingredient, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
-  </tbody>
-</table>
+  <% end %>
+<% end %>
 
 <%= link_to 'New Ingredient', new_ingredient_path %>
 
+<%= my_div(html_class: "test") do %>
+  <p>Un</p>
+  <p>Deux</p>
+  <p>Trois</p>
+<% end %>
+
+<%= list(elements: ["un", "deux", "trois"]) %>
+
+<%= list %>

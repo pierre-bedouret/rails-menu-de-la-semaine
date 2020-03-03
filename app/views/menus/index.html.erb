@@ -2,8 +2,8 @@
 
 <h1>Menus</h1>
 
-<table>
-  <thead>
+<%= table do %>
+  <%= thead html_class: "test" do %>
     <tr>
       <th>N°</th>
       <th>Entrée</th>
@@ -12,9 +12,9 @@
       <th>Ingredients</th>
       <th colspan="3"></th>
     </tr>
-  </thead>
+  <% end %>
 
-  <tbody>
+  <%= tbody do %>
     <% @menus.each do |menu| %>
       <tr>
         <td><%= menu.id %></td>
@@ -31,8 +31,8 @@
         <td><%= link_to 'Destroy', menu, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
-  </tbody>
-</table>
+  <% end %>
+<% end %>
 
 <%= link_to 'New Menu', new_menu_path %>
 
